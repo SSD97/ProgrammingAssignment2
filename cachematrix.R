@@ -4,20 +4,20 @@ makeCacheMatrix <- function(x = matrix()) {
   #Empty inverse matrix
   a <- NULL
   
-  set <- function(x)
+  set <- function(y)
   {
     #sets matrix value in parent env
-    b <<- x
+    x <<- y
     #sets empty inverse matrix in parent env
     a <<- NULL
   }
   
   #To get the value of matrix
-  get <- function() {b}
+  get <- function() { x }
   
   #Sets inverse matrix value in parent env
-  setInvMatrix <- function(x)
-  { a <<- x }
+  setInvMatrix <- function(y)
+  { a <<- y }
   
   #To get the value of inverse matrix
   getInvMatrix <- function() {a}
@@ -33,7 +33,7 @@ makeCacheMatrix <- function(x = matrix()) {
 cacheSolve <- function(x, ...) {
   
   #To get inverse matrix
-  a <- x$getInverse()
+  a <- x$getInvMatrix()
   
   
   #if inverse matrix already exist (not NULL) then print msg and return cached matrix
@@ -46,13 +46,13 @@ cacheSolve <- function(x, ...) {
   #If inverse matrix does not exist 
   
   #To get the matrix
-  b <- x$get()
+  matrix <- x$get()
   
   #Inverse calculation
-  a <- solve(mat, ...)
+  a <- solve(matrix, ...)
   
   #Update inverse matrix in parent env
-  x$setInverse(a)
+  x$setInvMatrix(a)
   
   
   #Return inverse matrix
